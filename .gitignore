@@ -3,6 +3,3 @@
 !/median/synthese/de1Soc.qsf
 !/median/synthese/synthesis.tcl
 /median/simulation/transcript
-/median/simulation/work/*
-touch median/simulation/.gitkeep
-touch median/simulation/work/.gitkeep

@@ -1,0 +1,193 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/naran/Documents/Embedded_Systems/SE_204/median/simulation
+vMCE
+Z1 DXx6 sv_std 3 std 0 22 VYECXdT12H8WgbUP_5Y6:3
+!s110 1735000216
+!i10b 1
+!s100 SzgDTzF<U0W`Lb`Ocdze<3
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IRNB5QVJFGh[96B17bgTDC1
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+w1734987707
+8../src/MCE.sv
+F../src/MCE.sv
+!i122 13
+L0 1 13
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+!s108 1735000215.000000
+!s107 ../src/MCE.sv|
+!s90 +acc|../src/MCE.sv|
+!i113 1
+Z5 o+acc
+Z6 tCvgOpt 0
+n@m@c@e
+vMCE_tb
+R1
+!s110 1735000220
+!i10b 1
+!s100 O`Q@Yd`6PoWO>`]AAYGNR1
+R2
+Ik:gdSl9Pmae?=JYLU2ag81
+R3
+S1
+R0
+w1734999600
+8../src/MCE_tb.sv
+F../src/MCE_tb.sv
+!i122 14
+L0 3 44
+R4
+r1
+!s85 0
+31
+!s108 1735000220.000000
+!s107 ../src/MCE_tb.sv|
+!s90 +acc|../src/MCE_tb.sv|
+!i113 1
+R5
+R6
+n@m@c@e_tb
+vMED
+R1
+!s110 1735000211
+!i10b 1
+!s100 Q@ZT?clA9o:Kd@4>kFRm]3
+R2
+I]a8N?l:F7]BD:W^=VZ;d40
+R3
+S1
+R0
+w1734987676
+8../src/MED.sv
+F../src/MED.sv
+!i122 12
+L0 1 41
+R4
+r1
+!s85 0
+31
+!s108 1735000211.000000
+!s107 ../src/MED.sv|
+!s90 +acc|../src/MED.sv|
+!i113 1
+R5
+R6
+n@m@e@d
+vMED_tb
+R1
+!s110 1735000203
+!i10b 1
+!s100 XOk7B8E8=f=Q8YNz`jU073
+R2
+Inlljn24iUB^hBh`hGo;Oz3
+R3
+S1
+R0
+w1734999291
+8../src/MED_tb.sv
+F../src/MED_tb.sv
+!i122 11
+L0 3 87
+R4
+r1
+!s85 0
+31
+!s108 1735000203.000000
+!s107 ../src/MED_tb.sv|
+!s90 +acc|../src/MED_tb.sv|
+!i113 1
+R5
+R6
+n@m@e@d_tb
+vMEDIAN
+R1
+!s110 1735003324
+!i10b 1
+!s100 ElCIU2nDb1Ejn5cZ0M]M[2
+R2
+IlGKS[7hMM^4V3Q8OIY:gE3
+R3
+S1
+R0
+w1735003304
+8../src/MEDIAN.sv
+F../src/MEDIAN.sv
+!i122 49
+L0 1 108
+R4
+r1
+!s85 0
+31
+!s108 1735003324.000000
+!s107 ../src/MEDIAN.sv|
+!s90 +acc|../src/MEDIAN.sv|
+!i113 1
+R5
+R6
+n@m@e@d@i@a@n
+vMEDIAN_IMAGE_tb
+R1
+!s110 1736183419
+!i10b 1
+!s100 bXCe``jbDMz;O95i28jQz1
+R2
+IPfD69g=?Mm]^XbiYCZ?]a0
+R3
+S1
+R0
+w1736183219
+8../src/MEDIAN_IMAGE_tb.sv
+F../src/MEDIAN_IMAGE_tb.sv
+!i122 50
+L0 8 64
+R4
+r1
+!s85 0
+31
+!s108 1736183418.000000
+!s107 ../src/MEDIAN_IMAGE_tb.sv|
+!s90 +acc|../src/MEDIAN_IMAGE_tb.sv|
+!i113 1
+R5
+R6
+n@m@e@d@i@a@n_@i@m@a@g@e_tb
+vMEDIAN_tb
+R1
+!s110 1735003322
+!i10b 1
+!s100 XKgdg9`bHV@n@YUnWZWN@0
+R2
+I9:kzbojCb<IJ:k_S0V4?V1
+R3
+S1
+R0
+w1735003318
+8../src/MEDIAN_tb.sv
+F../src/MEDIAN_tb.sv
+!i122 48
+L0 8 54
+R4
+r1
+!s85 0
+31
+!s108 1735003322.000000
+!s107 ../src/MEDIAN_tb.sv|
+!s90 +acc|../src/MEDIAN_tb.sv|
+!i113 1
+R5
+R6
+n@m@e@d@i@a@n_tb
