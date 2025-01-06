@@ -1,0 +1,6 @@
+/median/synthese/*
+!/median/synthese/Makefile
+!/median/synthese/de1Soc.qsf
+!/median/synthese/synthesis.tcl
+/median/simulation/transcript
+/median/simulation/work/*
