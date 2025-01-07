@@ -10,7 +10,7 @@ SRC_DIR = $(SYN_DIR)/../src
 # source files for synthesis
 # add the path to source files ex:MCE.sv
 # separated with spaces
-SOURCE_FILES = MCE.sv MED.sv MEDIAN.sv
+SOURCE_FILES =  MCE.sv MED.sv MEDIAN.sv
 
 # Top module for synthesis
 # add the top modle for synthesis ex:MCE
@@ -28,11 +28,7 @@ all:
 	@echo "make clean: clean the current directory"
 
 
-#SYN_PR_TOOLS=/usr/bin 
-#YOSYS_PATH=${SYN_PR_TOOLS}
-#GRAPH_PATH=/mnt/c/Users/naran/AppData/Roaming/npm
-
-SYN_PR_TOOLS=/comelec/softs/opt/yosys 
+SYN_PR_TOOLS=/comelec/softs/opt/yosys
 YOSYS_PATH=${SYN_PR_TOOLS}/current/bin
 GRAPH_PATH=${SYN_PR_TOOLS}/netlistsvg
 
