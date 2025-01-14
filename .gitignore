@@ -4,3 +4,5 @@
 !/median/synthese/synthesis.tcl
 /median/simulation/transcript
 /median/simulation/work/
+*.swp
+tmp
