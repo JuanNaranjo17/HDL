@@ -29,8 +29,8 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
       // Registers to rafale mode
       logic[2**(BURSTCOUNT_W-1):0] burstcount_reg;
       logic[2**(BURSTCOUNT_W-1):0] burstcount_count;
-      logic[31:0] init_address;
-      logic[31:0] addr;
+      logic[10:0] init_address;
+      logic[10:0] addr;
 
       // Output assignment
       assign avalon_a.readdata = read_data_reg;
@@ -73,7 +73,7 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
                                           read_state <= READ;
                                     else begin
                                           read_state <= READ_BURST;
-                                          init_address <= avalon_a.address;
+                                          init_address <= avalon_a.address[12:2];
                                           burstcount_reg <= avalon_a.burstcount;
                                           burstcount_count <= 1;
                                     end
@@ -86,7 +86,7 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
                                                 read_state <= INIT;
                                           else begin
                                                 read_state <= WRITE_BURST;
-                                                init_address <= avalon_a.address;
+                                                init_address <= avalon_a.address[12:2];
                                                 burstcount_reg <= avalon_a.burstcount;
                                                 burstcount_count <= 1;
                                           end
@@ -150,7 +150,7 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
                   INIT:
                         addr = avalon_a.address[12:2];
                   default:
-                        addr = init_address[12:2] + burstcount_count;
+                        addr = init_address + burstcount_count;
             endcase
       end
 
