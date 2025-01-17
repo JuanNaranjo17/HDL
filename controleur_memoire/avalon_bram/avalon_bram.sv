@@ -15,13 +15,13 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
       );
 
       // Local Parameters
-      localparam integer DATA_WIDTH = 8 * 4; // Data width: 4 bytes = 32 bits
+      parameter integer DATA_WIDTH = 8 * 4; // Data width: 4 bytes = 32 bits
 
       // Intern Registers
-      logic [7:0] memory_byte0 [2**RAM_ADD_W];      // 2**11 = 2048
-      logic [7:0] memory_byte1 [2**RAM_ADD_W];
-      logic [7:0] memory_byte2 [2**RAM_ADD_W];
-      logic [7:0] memory_byte3 [2**RAM_ADD_W];
+      reg [7:0] memory_byte0 [2**RAM_ADD_W];      // 2**11 = 2048
+      reg [7:0] memory_byte1 [2**RAM_ADD_W];
+      reg [7:0] memory_byte2 [2**RAM_ADD_W];
+      reg [7:0] memory_byte3 [2**RAM_ADD_W];
       logic [DATA_WIDTH-1:0] read_data_reg;  // Register to save the read data
       logic readdatavalid_reg;               // Register to readdatavalid signal
       logic waitrequest_reg;                 // Register to waitrequest signal
@@ -30,6 +30,7 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
       logic[2**(BURSTCOUNT_W-1):0] burstcount_reg;
       logic[2**(BURSTCOUNT_W-1):0] burstcount_count;
       logic[31:0] init_address;
+      logic[31:0] addr;
 
       // Output assignment
       assign avalon_a.readdata = read_data_reg;
@@ -129,30 +130,28 @@ module avalon_bram #(parameter integer RAM_ADD_W = 11, integer BURSTCOUNT_W = 4 
       end
       // RAM handler
       always_ff @(posedge avalon_a.clk) begin
-            if (avalon_a.write && read_state == INIT) begin
-                  if (avalon_a.byteenable[0]) memory_byte0[(avalon_a.address/4)%2048] <= avalon_a.writedata[7:0];
-                  if (avalon_a.byteenable[1]) memory_byte1[(avalon_a.address/4)%2048] <= avalon_a.writedata[15:8];
-                  if (avalon_a.byteenable[2]) memory_byte2[(avalon_a.address/4)%2048] <= avalon_a.writedata[23:16];
-                  if (avalon_a.byteenable[3]) memory_byte3[(avalon_a.address/4)%2048] <= avalon_a.writedata[31:24];
+            if (avalon_a.write) begin
+                  if (avalon_a.byteenable[0]) memory_byte0[addr] <= avalon_a.writedata[7:0];
+                  if (avalon_a.byteenable[1]) memory_byte1[addr] <= avalon_a.writedata[15:8];
+                  if (avalon_a.byteenable[2]) memory_byte2[addr] <= avalon_a.writedata[23:16];
+                  if (avalon_a.byteenable[3]) memory_byte3[addr] <= avalon_a.writedata[31:24];
             end
-            else if (avalon_a.write && read_state == WRITE_BURST) begin
-                  if (avalon_a.byteenable[0]) memory_byte0[burstcount_count + (init_address/4)%2048] <= avalon_a.writedata[7:0];
-                  if (avalon_a.byteenable[1]) memory_byte1[burstcount_count + (init_address/4)%2048] <= avalon_a.writedata[15:8];
-                  if (avalon_a.byteenable[2]) memory_byte2[burstcount_count + (init_address/4)%2048] <= avalon_a.writedata[23:16];
-                  if (avalon_a.byteenable[3]) memory_byte3[burstcount_count + (init_address/4)%2048] <= avalon_a.writedata[31:24];
+            else if (avalon_a.read || read_state == READ_BURST) begin
+                  read_data_reg <= {memory_byte3[addr],
+                                    memory_byte2[addr],
+                                    memory_byte1[addr],
+                                    memory_byte0[addr]};
             end
-            else if (avalon_a.read && read_state == INIT) begin
-                  read_data_reg <= {memory_byte3[(avalon_a.address/4)%2048],
-                                    memory_byte2[(avalon_a.address/4)%2048],
-                                    memory_byte1[(avalon_a.address/4)%2048],
-                                    memory_byte0[(avalon_a.address/4)%2048]};
-            end
-            else if (read_state == READ_BURST) begin
-                  read_data_reg <= {memory_byte3[burstcount_count + (init_address/4)%2048],
-                                    memory_byte2[burstcount_count + (init_address/4)%2048],
-                                    memory_byte1[burstcount_count + (init_address/4)%2048],
-                                    memory_byte0[burstcount_count + (init_address/4)%2048]};
-            end
+      end
+
+      always_comb
+      begin
+            case (read_state)
+                  INIT:
+                        addr = avalon_a.address[12:2];
+                  default:
+                        addr = init_address[12:2] + burstcount_count;
+            endcase
       end
 
 
