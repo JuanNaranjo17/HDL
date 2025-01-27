@@ -7,14 +7,19 @@
   localparam integer hcmpt2 = 16000000 ;
 `endif
 
-module Top (
+module Top #(
+    parameter integer HDISP = 800,
+    parameter integer VDISP = 480
+)
+(
     // Les signaux externes de la partie FPGA
     input  wire  FPGA_CLK1_50,
     input  wire  [1:0] KEY,
     output logic [7:0] LED,
     input  wire  [3:0] SW,
     // Les signaux du support matériel son regroupés dans une interface
-    hws_if.master       hws_ifm
+    hws_if.master       hws_ifm,
+    video_if.master     video_ifm
 );
 
 //====================================
@@ -132,6 +137,16 @@ always_ff @(posedge pixel_clk or posedge pixel_rst) begin
     end
 
 end
+
+vga #(
+    .HDISP (HDISP),
+    .VDISP (VDISP)
+)
+vga_inst (
+    .pixel_clk (pixel_clk),
+    .pixel_rst (pixel_rst),
+    .video_ifm (video_ifm)
+);
 
 
 endmodule
