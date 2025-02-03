@@ -73,11 +73,11 @@ assign avalon_if_stream.readdata = '0 ;
 // pour l'instant
 // A SUPPRIMER PLUS TARD
 //=============================
-assign avalon_if_sdram.write  = 1'b0;
-assign avalon_if_sdram.read   = 1'b0;
-assign avalon_if_sdram.address = '0  ;
-assign avalon_if_sdram.writedata = '0 ;
-assign avalon_if_sdram.byteenable = '0 ;
+//assign avalon_if_sdram.write  = 1'b0;
+//assign avalon_if_sdram.read   = 1'b0;
+//assign avalon_if_sdram.address = '0  ;
+//assign avalon_if_sdram.writedata = '0 ;
+//assign avalon_if_sdram.byteenable = '0 ;
 
 
 //--------------------------
@@ -145,7 +145,8 @@ vga #(
 vga_inst (
     .pixel_clk (pixel_clk),
     .pixel_rst (pixel_rst),
-    .video_ifm (video_ifm)
+    .video_ifm (video_ifm),
+    .avalon_ifh (avalon_if_sdram)
 );
 
 
