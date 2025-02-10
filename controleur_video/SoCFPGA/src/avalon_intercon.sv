@@ -155,14 +155,13 @@ end
 
 // Referee
 always_comb begin
-    case (sel_vga)
-        1:
-            if (!vga_busy && avalon_ifa_stream.write) sel_vga = 1'b0;
-        0:
-            if (!stream_busy && avalon_ifa_vga.read) sel_vga = 1'b1;
-        default:
-            sel_vga = 1'b1;
-    endcase
+    if (sel_vga) begin
+        if (!vga_busy && avalon_ifa_stream.write) sel_vga = 1'b0;
+        else sel_vga = 1'b1;
+    end else begin
+        if (!stream_busy && avalon_ifa_vga.read) sel_vga = 1'b1;
+        else sel_vga = 1'b0;
+    end
 end
 
 endmodule
