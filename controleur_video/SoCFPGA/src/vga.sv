@@ -132,24 +132,22 @@ always_ff @(posedge avalon_ifh.clk) begin
     else begin
         case (read_state)
             INIT: begin
-                if(!avalon_ifh.waitrequest && !walmost_full) begin
+                if(!walmost_full) begin
                     avalon_ifh.read <= 1;
                     avalon_ifh.burstcount <= BURSTSIZE;
                     data_counter <= 0;
                     read_state <= READ;
                 end
-                else read_state <= INIT;
             end
 
             READ: begin
-                avalon_ifh.read <= 0;
+                if (!avalon_ifh.waitrequest) begin
+                    avalon_ifh.read <= 0;
+                end
                 if (avalon_ifh.readdatavalid) begin
                     data_counter <= data_counter + 1;
                     if (data_counter + 1 == BURSTSIZE) begin
                         read_state <= DONE;
-                    end
-                    else begin
-                        read_state <= READ;
                     end
                 end
             end
