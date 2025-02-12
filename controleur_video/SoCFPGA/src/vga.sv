@@ -24,7 +24,8 @@ localparam integer MaxPixels     = HFP + HPULSE + HBP + HDISP;
 localparam integer MaxRows       = VFP + VPULSE + VBP + VDISP;
 localparam integer MaxPixelsBits = $clog2(MaxPixels);
 
-localparam integer BURSTSIZE     = 16;
+localparam integer BURSTSIZE     = 32;
+localparam integer MaxBurstSize  = $clog2(BURSTSIZE);
 
 localparam integer MaxRowsBits   = $clog2(MaxRows);
 
@@ -109,7 +110,7 @@ always_ff @(posedge pixel_clk or posedge pixel_rst) begin
 end
 */
 // SDRAM controller
-logic [3 : 0] data_counter;
+logic [MaxBurstSize - 1 : 0] data_counter;
 logic walmost_full;
 
 typedef enum logic [1:0]{
@@ -183,7 +184,7 @@ end
 
 wire fifo_read = enable_read && video_ifm.BLANK;
 
-async_fifo #(.DATA_WIDTH(24), .DEPTH_WIDTH(8), .ALMOST_FULL_THRESHOLD(256 - 16)) async_fifo0 (
+async_fifo #(.DATA_WIDTH(24), .DEPTH_WIDTH(8), .ALMOST_FULL_THRESHOLD(256 - BURSTSIZE)) async_fifo0 (
     .rst(avalon_ifh.reset),
     .rclk(pixel_clk),
     .read(fifo_read),

@@ -29,8 +29,8 @@ assign avalon_ifa_stream.readdatavalid = (sel_vga) ? 1'b0 : avalon_ifh_sdram.rea
 
 
 logic vga_busy;
-logic [3 : 0] vga_count;
-logic [4 : 0] vga_burstcount;
+logic [4 : 0] vga_count;
+logic [5 : 0] vga_burstcount;
 
 typedef enum logic [1:0]{
             INIT,
@@ -94,8 +94,8 @@ begin
 end
 
 logic stream_busy;
-logic [3 : 0] stream_count;
-logic [4 : 0] stream_burstcount;
+logic [4 : 0] stream_count;
+logic [5 : 0] stream_burstcount;
 
 typedef enum logic {
             INIT_W,
@@ -156,11 +156,12 @@ end
 // Referee
 always_comb begin
     if (sel_vga) begin
-        if (!vga_busy && avalon_ifa_stream.write) sel_vga = 1'b0;
-        else sel_vga = 1'b1;
-    end else begin
-        if (!stream_busy && avalon_ifa_vga.read) sel_vga = 1'b1;
-        else sel_vga = 1'b0;
+        if (!vga_busy && avalon_ifa_stream.write) sel_vga = 0;
+        else sel_vga = 1;
+    end
+    else begin
+        if (!stream_busy && avalon_ifa_vga.read) sel_vga = 1;
+        else sel_vga = 0;
     end
 end
 
